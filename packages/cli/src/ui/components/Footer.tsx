@@ -19,6 +19,7 @@ import { useUIState } from '../contexts/UIStateContext.js';
 import { useConfig } from '../contexts/ConfigContext.js';
 import { useSettings } from '../contexts/SettingsContext.js';
 import { useVimMode } from '../contexts/VimModeContext.js';
+import { t } from '../../i18n/i18n.js';
 
 export const Footer: React.FC = () => {
   const uiState = useUIState();
@@ -118,7 +119,9 @@ export const Footer: React.FC = () => {
           display="flex"
         >
           {isTrustedFolder === false ? (
-            <Text color={theme.status.warning}>untrusted</Text>
+            <Text color={theme.status.warning}>
+              {t('app.footer.untrusted')}
+            </Text>
           ) : process.env['SANDBOX'] &&
             process.env['SANDBOX'] !== 'sandbox-exec' ? (
             <Text color="green">
@@ -133,9 +136,12 @@ export const Footer: React.FC = () => {
             </Text>
           ) : (
             <Text color={theme.status.error}>
-              no sandbox
+              {t('app.footer.noSandbox')}
               {mainAreaWidth >= 100 && (
-                <Text color={theme.text.secondary}> (see /docs)</Text>
+                <Text color={theme.text.secondary}>
+                  {' '}
+                  ({t('app.footer.seeDocs')})
+                </Text>
               )}
             </Text>
           )}

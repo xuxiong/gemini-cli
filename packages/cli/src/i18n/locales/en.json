@@ -1,0 +1,129 @@
+{
+  "app": {
+    "header": {
+      "title": "Gemini CLI"
+    },
+    "footer": {
+      "debug": "debug",
+      "untrusted": "untrusted",
+      "noSandbox": "no sandbox",
+      "seeDocs": "see /docs",
+      "memoryUsage": "Memory Usage"
+    },
+    "dialogs": {
+      "theme": {
+        "title": "Select Theme",
+        "cancel": "Cancel"
+      },
+      "auth": {
+        "title": "Authentication",
+        "apiKey": "API Key",
+        "cancel": "Cancel",
+        "submit": "Submit",
+        "selectMethod": "Select Authentication Method",
+        "googleLogin": "Login with Google",
+        "apiKeyInput": "Enter API Key",
+        "cloudShell": "Cloud Shell Authentication",
+        "external": "Use External Authentication",
+        "vertexAI": "Use Vertex AI"
+      },
+      "editor": {
+        "title": "Select Editor",
+        "cancel": "Cancel"
+      },
+      "model": {
+        "title": "Select Model",
+        "cancel": "Cancel"
+      },
+      "settings": {
+        "title": "Settings",
+        "close": "Close"
+      },
+      "privacy": {
+        "title": "Privacy Notice",
+        "accept": "Accept",
+        "decline": "Decline"
+      }
+    },
+    "messages": {
+      "loading": "Loading",
+      "responding": "Responding",
+      "error": "Error",
+      "warning": "Warning",
+      "info": "Info",
+      "success": "Success",
+      "cancel": "Cancel",
+      "exitWarningCtrlC": "Press Ctrl+C again to exit.",
+      "exitWarningCtrlD": "Press Ctrl+D again to exit."
+    },
+    "commands": {
+      "help": {
+        "title": "Help",
+        "basics": "Basics:",
+        "addContext": "Add context",
+        "shellMode": "Shell mode",
+        "atSymbol": "@",
+        "exclamationSymbol": "!",
+        "use": "Use",
+        "toSpecifyFiles": "to specify files for context (e.g.,",
+        "toTargetSpecificFiles": "to target specific files or folders",
+        "executeShell": "Execute shell commands via",
+        "orUseNaturalLanguage": "or use natural language (e.g.",
+        "startServer": "start server",
+        "shellCommand": "shell command",
+        "mcpDescription": "Model Context Protocol command (from external servers)",
+        "commands": "Commands:",
+        "keyboardShortcuts": "Keyboard Shortcuts:",
+        "altLeftRight": "Alt+Left/Right",
+        "jumpWords": "Jump through words in the input",
+        "ctrlC": "Ctrl+C",
+        "quitApp": "Quit application",
+        "ctrlJ": "Ctrl+J",
+        "newLine": "New line",
+        "newLineLinux": "New line (Alt+Enter works for certain linux distros)",
+        "ctrlL": "Ctrl+L",
+        "clearScreen": "Clear the screen",
+        "ctrlX": "Ctrl+X",
+        "openEditor": "Open input in external editor",
+        "ctrlY": "Ctrl+Y",
+        "toggleYolo": "Toggle YOLO mode",
+        "enter": "Enter",
+        "sendMessage": "Send message",
+        "esc": "Esc",
+        "cancelOperation": "Cancel operation / Clear input (double press)",
+        "shiftTab": "Shift+Tab",
+        "toggleAutoAccept": "Toggle auto-accepting edits",
+        "upDown": "Up/Down",
+        "cycleHistory": "Cycle through your prompt history",
+        "fullList": "For a full list of shortcuts, see"
+      },
+      "quit": {
+        "confirm": "Are you sure you want to quit?"
+      },
+      "locale": {
+        "description": "Change the application language",
+        "currentLanguage": "Current language: {{language}}",
+        "languageChanged": "Language changed to {{language}}",
+        "unsupportedLanguage": "Unsupported language: {{language}}. Available languages: {{available}}"
+      }
+    }
+  },
+  "ui": {
+    "input": {
+      "placeholder": "Ask Gemini or type ! to run a shell command",
+      "shellPlaceholder": "Enter shell command or natural language instructions"
+    },
+    "status": {
+      "idle": "Idle",
+      "processing": "Processing",
+      "error": "Error"
+    },
+    "tips": {
+      "title": "Tips for getting started:",
+      "tip1": "Ask questions, edit files, or run commands.",
+      "tip2": "Be specific for the best results.",
+      "tip3": "Create {{fileName}} files to customize your interactions with Gemini.",
+      "moreInfo": "for more information."
+    }
+  }
+}

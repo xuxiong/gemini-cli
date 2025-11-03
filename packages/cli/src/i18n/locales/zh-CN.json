@@ -1,0 +1,129 @@
+{
+  "app": {
+    "header": {
+      "title": "Gemini 命令行工具"
+    },
+    "footer": {
+      "debug": "调试",
+      "untrusted": "未信任",
+      "noSandbox": "无沙箱",
+      "seeDocs": "参见 /docs",
+      "memoryUsage": "内存使用"
+    },
+    "dialogs": {
+      "theme": {
+        "title": "选择主题",
+        "cancel": "取消"
+      },
+      "auth": {
+        "title": "认证",
+        "apiKey": "API 密钥",
+        "cancel": "取消",
+        "submit": "提交",
+        "selectMethod": "选择认证方式",
+        "googleLogin": "使用 Google 登录",
+        "apiKeyInput": "输入 API 密钥",
+        "cloudShell": "Cloud Shell 认证",
+        "external": "使用外部认证",
+        "vertexAI": "使用 Vertex AI"
+      },
+      "editor": {
+        "title": "选择编辑器",
+        "cancel": "取消"
+      },
+      "model": {
+        "title": "选择模型",
+        "cancel": "取消"
+      },
+      "settings": {
+        "title": "设置",
+        "close": "关闭"
+      },
+      "privacy": {
+        "title": "隐私声明",
+        "accept": "接受",
+        "decline": "拒绝"
+      }
+    },
+    "messages": {
+      "loading": "加载中",
+      "responding": "正在响应",
+      "error": "错误",
+      "warning": "警告",
+      "info": "信息",
+      "success": "成功",
+      "cancel": "取消",
+      "exitWarningCtrlC": "再次按 Ctrl+C 退出。",
+      "exitWarningCtrlD": "再次按 Ctrl+D 退出。"
+    },
+    "commands": {
+      "help": {
+        "title": "帮助",
+        "basics": "基本操作:",
+        "addContext": "添加上下文",
+        "shellMode": "Shell 模式",
+        "atSymbol": "@",
+        "exclamationSymbol": "!",
+        "use": "使用",
+        "toSpecifyFiles": "指定上下文文件 (例如,",
+        "toTargetSpecificFiles": "来定位特定文件或文件夹",
+        "executeShell": "通过",
+        "orUseNaturalLanguage": "或使用自然语言 (例如",
+        "startServer": "启动服务器",
+        "shellCommand": "shell 命令",
+        "mcpDescription": "模型上下文协议命令 (来自外部服务器)",
+        "commands": "命令:",
+        "keyboardShortcuts": "键盘快捷键:",
+        "altLeftRight": "Alt+左/右",
+        "jumpWords": "在输入中跳转单词",
+        "ctrlC": "Ctrl+C",
+        "quitApp": "退出应用",
+        "ctrlJ": "Ctrl+J",
+        "newLine": "换行",
+        "newLineLinux": "换行 (Alt+Enter 在某些 Linux 发行版中有效)",
+        "ctrlL": "Ctrl+L",
+        "clearScreen": "清屏",
+        "ctrlX": "Ctrl+X",
+        "openEditor": "在外部编辑器中打开输入",
+        "ctrlY": "Ctrl+Y",
+        "toggleYolo": "切换 YOLO 模式",
+        "enter": "回车",
+        "sendMessage": "发送消息",
+        "esc": "Esc",
+        "cancelOperation": "取消操作 / 清除输入 (双击)",
+        "shiftTab": "Shift+Tab",
+        "toggleAutoAccept": "切换自动接受编辑",
+        "upDown": "上/下",
+        "cycleHistory": "循环浏览提示历史",
+        "fullList": "完整快捷键列表，请参见"
+      },
+      "quit": {
+        "confirm": "确定要退出吗？"
+      },
+      "locale": {
+        "description": "更改应用程序语言",
+        "currentLanguage": "当前语言: {{language}}",
+        "languageChanged": "语言已更改为 {{language}}",
+        "unsupportedLanguage": "不支持的语言: {{language}}。可用语言: {{available}}"
+      }
+    }
+  },
+  "ui": {
+    "input": {
+      "placeholder": "向 Gemini 提问或输入 ! 运行 Shell 命令",
+      "shellPlaceholder": "输入 Shell 命令或自然语言指令"
+    },
+    "status": {
+      "idle": "空闲",
+      "processing": "处理中",
+      "error": "错误"
+    },
+    "tips": {
+      "title": "入门提示:",
+      "tip1": "提问、编辑文件或运行命令。",
+      "tip2": "请具体说明以获得最佳结果。",
+      "tip3": "创建 {{fileName}} 文件以自定义与 Gemini 的交互。",
+      "moreInfo": "了解更多信息。"
+    }
+  }
+}

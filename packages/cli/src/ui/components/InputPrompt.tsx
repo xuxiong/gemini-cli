@@ -40,6 +40,7 @@ import { useShellFocusState } from '../contexts/ShellFocusContext.js';
 import { useUIState } from '../contexts/UIStateContext.js';
 import { StreamingState } from '../types.js';
 import { isSlashCommand } from '../utils/commandUtils.js';
+import { t } from '../../i18n/i18n.js';
 
 /**
  * Returns if the terminal can be trusted to handle paste events atomically
@@ -102,7 +103,7 @@ export const InputPrompt: React.FC<InputPromptProps> = ({
   config,
   slashCommands,
   commandContext,
-  placeholder = '  Type your message or @path/to/file',
+  placeholder = t('ui.input.placeholder'),
   focus = true,
   inputWidth,
   suggestionsWidth,

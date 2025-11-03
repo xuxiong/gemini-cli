@@ -8,6 +8,7 @@ import type React from 'react';
 import { Box, Text } from 'ink';
 import { theme } from '../semantic-colors.js';
 import { type SlashCommand, CommandKind } from '../commands/types.js';
+import { t } from '../../i18n/i18n.js';
 
 interface Help {
   commands: readonly SlashCommand[];
@@ -23,37 +24,37 @@ export const Help: React.FC<Help> = ({ commands }) => (
   >
     {/* Basics */}
     <Text bold color={theme.text.primary}>
-      Basics:
+      {t('app.commands.help.basics')}
     </Text>
     <Text color={theme.text.primary}>
       <Text bold color={theme.text.accent}>
-        Add context
+        {t('app.commands.help.addContext')}
       </Text>
-      : Use{' '}
+      : {t('app.commands.help.use')}{' '}
       <Text bold color={theme.text.accent}>
-        @
+        {t('app.commands.help.atSymbol')}
       </Text>{' '}
-      to specify files for context (e.g.,{' '}
+      {t('app.commands.help.toSpecifyFiles')} (
       <Text bold color={theme.text.accent}>
         @src/myFile.ts
       </Text>
-      ) to target specific files or folders.
+      ) {t('app.commands.help.toTargetSpecificFiles')}.
     </Text>
     <Text color={theme.text.primary}>
       <Text bold color={theme.text.accent}>
-        Shell mode
+        {t('app.commands.help.shellMode')}
       </Text>
-      : Execute shell commands via{' '}
+      : {t('app.commands.help.executeShell')}{' '}
       <Text bold color={theme.text.accent}>
-        !
+        {t('app.commands.help.exclamationSymbol')}
       </Text>{' '}
-      (e.g.,{' '}
+      (
       <Text bold color={theme.text.accent}>
         !npm run start
       </Text>
-      ) or use natural language (e.g.{' '}
+      ) {t('app.commands.help.orUseNaturalLanguage')} (
       <Text bold color={theme.text.accent}>
-        start server
+        {t('app.commands.help.startServer')}
       </Text>
       ).
     </Text>
@@ -62,7 +63,7 @@ export const Help: React.FC<Help> = ({ commands }) => (
 
     {/* Commands */}
     <Text bold color={theme.text.primary}>
-      Commands:
+      {t('app.commands.help.commands')}
     </Text>
     {commands
       .filter((command) => command.description && !command.hidden)
@@ -97,84 +98,84 @@ export const Help: React.FC<Help> = ({ commands }) => (
         {' '}
         !{' '}
       </Text>
-      - shell command
+      - {t('app.commands.help.shellCommand')}
     </Text>
     <Text color={theme.text.primary}>
-      <Text color={theme.text.secondary}>[MCP]</Text> - Model Context Protocol
-      command (from external servers)
+      <Text color={theme.text.secondary}>[MCP]</Text> -{' '}
+      {t('app.commands.help.mcpDescription')}
     </Text>
 
     <Box height={1} />
 
     {/* Shortcuts */}
     <Text bold color={theme.text.primary}>
-      Keyboard Shortcuts:
+      {t('app.commands.help.keyboardShortcuts')}
     </Text>
     <Text color={theme.text.primary}>
       <Text bold color={theme.text.accent}>
-        Alt+Left/Right
+        {t('app.commands.help.altLeftRight')}
       </Text>{' '}
-      - Jump through words in the input
+      - {t('app.commands.help.jumpWords')}
     </Text>
     <Text color={theme.text.primary}>
       <Text bold color={theme.text.accent}>
-        Ctrl+C
+        {t('app.commands.help.ctrlC')}
       </Text>{' '}
-      - Quit application
+      - {t('app.commands.help.quitApp')}
     </Text>
     <Text color={theme.text.primary}>
       <Text bold color={theme.text.accent}>
         {process.platform === 'win32' ? 'Ctrl+Enter' : 'Ctrl+J'}
       </Text>{' '}
       {process.platform === 'linux'
-        ? '- New line (Alt+Enter works for certain linux distros)'
-        : '- New line'}
+        ? `- ${t('app.commands.help.newLineLinux')}`
+        : `- ${t('app.commands.help.newLine')}`}
     </Text>
     <Text color={theme.text.primary}>
       <Text bold color={theme.text.accent}>
-        Ctrl+L
+        {t('app.commands.help.ctrlL')}
       </Text>{' '}
-      - Clear the screen
+      - {t('app.commands.help.clearScreen')}
     </Text>
     <Text color={theme.text.primary}>
       <Text bold color={theme.text.accent}>
         {process.platform === 'darwin' ? 'Ctrl+X / Meta+Enter' : 'Ctrl+X'}
       </Text>{' '}
-      - Open input in external editor
+      - {t('app.commands.help.openEditor')}
     </Text>
     <Text color={theme.text.primary}>
       <Text bold color={theme.text.accent}>
-        Ctrl+Y
+        {t('app.commands.help.ctrlY')}
       </Text>{' '}
-      - Toggle YOLO mode
+      - {t('app.commands.help.toggleYolo')}
     </Text>
     <Text color={theme.text.primary}>
       <Text bold color={theme.text.accent}>
-        Enter
+        {t('app.commands.help.enter')}
       </Text>{' '}
-      - Send message
+      - {t('app.commands.help.sendMessage')}
     </Text>
     <Text color={theme.text.primary}>
       <Text bold color={theme.text.accent}>
-        Esc
+        {t('app.commands.help.esc')}
       </Text>{' '}
-      - Cancel operation / Clear input (double press)
+      - {t('app.commands.help.cancelOperation')}
     </Text>
     <Text color={theme.text.primary}>
       <Text bold color={theme.text.accent}>
-        Shift+Tab
+        {t('app.commands.help.shiftTab')}
       </Text>{' '}
-      - Toggle auto-accepting edits
+      - {t('app.commands.help.toggleAutoAccept')}
     </Text>
     <Text color={theme.text.primary}>
       <Text bold color={theme.text.accent}>
-        Up/Down
+        {t('app.commands.help.upDown')}
       </Text>{' '}
-      - Cycle through your prompt history
+      - {t('app.commands.help.cycleHistory')}
     </Text>
     <Box height={1} />
     <Text color={theme.text.primary}>
-      For a full list of shortcuts, see{' '}
+      {t('app.commands.help.fullList')}{' '}
       <Text bold color={theme.text.accent}>
         docs/cli/keyboard-shortcuts.md
       </Text>

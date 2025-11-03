@@ -102,6 +102,7 @@ import {
 import { ShellFocusContext } from './contexts/ShellFocusContext.js';
 import { type ExtensionManager } from '../config/extension-manager.js';
 import { requestConsentInteractive } from '../config/extensions/consent.js';
+import { I18nProvider } from './contexts/I18nContext.js';
 
 const CTRL_EXIT_PROMPT_DURATION_MS = 1000;
 const QUEUE_ERROR_DISPLAY_DURATION_MS = 3000;
@@ -1446,21 +1447,23 @@ Logging in with Google... Please restart Gemini CLI to continue.
   );
 
   return (
-    <UIStateContext.Provider value={uiState}>
-      <UIActionsContext.Provider value={uiActions}>
-        <ConfigContext.Provider value={config}>
-          <AppContext.Provider
-            value={{
-              version: props.version,
-              startupWarnings: props.startupWarnings || [],
-            }}
-          >
-            <ShellFocusContext.Provider value={isFocused}>
-              <App />
-            </ShellFocusContext.Provider>
-          </AppContext.Provider>
-        </ConfigContext.Provider>
-      </UIActionsContext.Provider>
-    </UIStateContext.Provider>
+    <I18nProvider>
+      <UIStateContext.Provider value={uiState}>
+        <UIActionsContext.Provider value={uiActions}>
+          <ConfigContext.Provider value={config}>
+            <AppContext.Provider
+              value={{
+                version: props.version,
+                startupWarnings: props.startupWarnings || [],
+              }}
+            >
+              <ShellFocusContext.Provider value={isFocused}>
+                <App />
+              </ShellFocusContext.Provider>
+            </AppContext.Provider>
+          </ConfigContext.Provider>
+        </UIActionsContext.Provider>
+      </UIStateContext.Provider>
+    </I18nProvider>
   );
 };
