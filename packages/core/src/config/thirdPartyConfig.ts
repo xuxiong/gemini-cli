@@ -13,9 +13,6 @@ import type { Config } from './config.js';
 
 type ConfigWithThirdParty = Config & {
   thirdPartyProvider?: Partial<ThirdPartyProviderConfig> | null;
-  model?: {
-    thirdPartyProvider?: Partial<ThirdPartyProviderConfig> | null;
-  } | null;
 };
 
 /**
@@ -34,21 +31,18 @@ export class ThirdPartyConfigManager {
     // This would typically access the config object that contains the settings
     // In the actual implementation, this would access the settings from the user's config file
     const sourceConfig = config as ConfigWithThirdParty;
-    const settings =
-      sourceConfig.thirdPartyProvider ??
-      sourceConfig.model?.thirdPartyProvider ??
-      undefined;
+    const settings = sourceConfig.thirdPartyProvider ?? undefined;
 
     if (!settings || !settings.enabled) {
       return undefined;
     }
 
     return {
-      endpoint: settings.endpoint,
-      apiKey: settings.apiKey,
+      endpoint: settings.endpoint ?? '',
+      apiKey: settings.apiKey ?? '',
       model: settings.model,
       name: settings.name,
-      enabled: settings.enabled,
+      enabled: settings.enabled ?? false,
     };
   }
 

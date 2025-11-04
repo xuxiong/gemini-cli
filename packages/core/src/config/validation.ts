@@ -55,11 +55,11 @@ export function validateThirdPartySettings(settings: SettingsLike) {
 
   // Validate the configuration
   const config: ThirdPartyProviderConfig = {
-    endpoint: thirdPartySettings.endpoint,
-    apiKey: thirdPartySettings.apiKey,
+    endpoint: thirdPartySettings.endpoint ?? '',
+    apiKey: thirdPartySettings.apiKey ?? '',
     model: thirdPartySettings.model,
     name: thirdPartySettings.name,
-    enabled: thirdPartySettings.enabled,
+    enabled: thirdPartySettings.enabled ?? false,
     timeout: thirdPartySettings.timeout,
     additionalHeaders: thirdPartySettings.additionalHeaders,
   };
@@ -80,7 +80,20 @@ export function validateThirdPartySettings(settings: SettingsLike) {
  * @returns An object containing validation results
  */
 export async function validateThirdPartyProviderCompletely(config: Config) {
-  const settingsValidation = validateThirdPartySettings(config);
+  // Get the third-party settings using the manager
+  const thirdPartyConfig =
+    ThirdPartyConfigManager.getThirdPartyProviderConfig(config);
+
+  // Create a settings object that matches SettingsLike type
+  const settingsLike: SettingsLike = thirdPartyConfig
+    ? {
+        model: {
+          thirdPartyProvider: thirdPartyConfig,
+        },
+      }
+    : null;
+
+  const settingsValidation = validateThirdPartySettings(settingsLike);
 
   if (!settingsValidation.hasThirdPartyConfig || !settingsValidation.isValid) {
     return settingsValidation;
