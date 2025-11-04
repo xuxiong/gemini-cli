@@ -1,0 +1,248 @@
+openapi: 3.0.0
+info:
+  title: Gemini CLI Third-Party Provider Configuration API
+  description: API for configuring third-party OpenAI-compatible LLM providers in Gemini CLI
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+paths:
+  /config/third-party-provider:
+    get:
+      summary: Get third-party provider configuration
+      responses:
+        '200':
+          description: Third-party provider configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThirdPartyProviderConfig'
+        '404':
+          description: Configuration not found
+    put:
+      summary: Update third-party provider configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ThirdPartyProviderConfig'
+      responses:
+        '200':
+          description: Configuration updated successfully
+        '400':
+          description: Invalid configuration parameters
+
+  /config/third-party-provider/validate:
+    post:
+      summary: Validate third-party provider configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ThirdPartyProviderConfig'
+      responses:
+        '200':
+          description: Validation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResult'
+        '400':
+          description: Validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResult'
+
+  /api/openai-compatible/chat/completions:
+    post:
+      summary: Create a chat completion with a third-party OpenAI-compatible API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpenAIChatCompletionRequest'
+      responses:
+        '200':
+          description: Chat completion response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenAIChatCompletionResponse'
+        '401':
+          description: Invalid API key
+        '400':
+          description: Invalid request parameters
+        '500':
+          description: Internal server error from third-party API
+
+components:
+  schemas:
+    ThirdPartyProviderConfig:
+      type: object
+      properties:
+        apiEndpoint:
+          type: string
+          format: uri
+          description: The base URL for the OpenAI-compatible API endpoint
+          example: "https://api.openrouter.ai/v1"
+        apiKey:
+          type: string
+          description: The API key for authenticating with the third-party service
+          writeOnly: true
+        model:
+          type: string
+          description: The specific model identifier to use with the provider
+          example: "openai/gpt-3.5-turbo"
+        enabled:
+          type: boolean
+          description: Flag to enable/disable the third-party provider
+          default: false
+        providerName:
+          type: string
+          description: Name of the provider
+          example: "OpenRouter"
+        timeout:
+          type: integer
+          description: Request timeout in milliseconds
+          default: 30000
+      required:
+        - apiEndpoint
+        - apiKey
+        - model
+
+    OpenAIChatCompletionRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          description: ID of the model to use
+          example: "openai/gpt-3.5-turbo"
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+          description: A list of messages comprising the conversation so far
+        temperature:
+          type: number
+          minimum: 0
+          maximum: 2
+          description: What sampling temperature to use
+          example: 1
+        max_tokens:
+          type: integer
+          description: The maximum number of tokens to generate
+        top_p:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: An alternative to sampling with temperature
+          example: 1
+        n:
+          type: integer
+          description: How many completions to generate for each prompt
+          default: 1
+        stop:
+          type: array
+          items:
+            type: string
+          description: Up to 4 sequences where the API will stop generating further tokens
+        stream:
+          type: boolean
+          description: Whether to stream back partial progress
+          default: false
+        presence_penalty:
+          type: number
+          minimum: -2
+          maximum: 2
+          description: Number between -2.0 and 2.0 that penalizes new tokens
+        frequency_penalty:
+          type: number
+          minimum: -2
+          maximum: 2
+          description: Number between -2.0 and 2.0 that penalizes new tokens
+      required:
+        - model
+        - messages
+
+    Message:
+      type: object
+      properties:
+        role:
+          type: string
+          enum: [system, user, assistant]
+          description: The role of the author of this message
+        content:
+          type: string
+          description: The contents of the message
+      required:
+        - role
+        - content
+
+    OpenAIChatCompletionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique identifier for the chat completion
+        object:
+          type: string
+          enum: [chat.completion]
+          description: The object type, always "chat.completion"
+        created:
+          type: integer
+          description: Unix timestamp of when the completion was created
+        model:
+          type: string
+          description: The model used for the completion
+        choices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Choice'
+          description: A list of chat completion choices
+        usage:
+          $ref: '#/components/schemas/Usage'
+          description: Usage statistics for the completion request
+
+    Choice:
+      type: object
+      properties:
+        index:
+          type: integer
+          description: The index of this choice
+        message:
+          $ref: '#/components/schemas/Message'
+          description: The message content for this choice
+        finish_reason:
+          type: string
+          enum: [stop, length, function_call, content_filter]
+          description: The reason the model stopped generating tokens
+
+    Usage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+          description: Number of tokens in the prompt
+        completion_tokens:
+          type: integer
+          description: Number of tokens in the completion
+        total_tokens:
+          type: integer
+          description: Total number of tokens used
+
+    ValidationResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the validation was successful
+        errors:
+          type: array
+          items:
+            type: string
+          description: List of validation errors if any

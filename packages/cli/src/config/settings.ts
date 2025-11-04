@@ -454,6 +454,17 @@ export class LoadedSettings {
     this._merged = this.computeMergedSettings();
     saveSettings(settingsFile);
   }
+
+  /**
+   * Saves all modified settings to their respective files
+   */
+  async save(): Promise<void> {
+    // Save all the settings files that might have been modified
+    saveSettings(this.user);
+    saveSettings(this.workspace);
+    saveSettings(this.system);
+    saveSettings(this.systemDefaults);
+  }
 }
 
 function findEnvFile(startDir: string): string | null {

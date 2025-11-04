@@ -69,11 +69,10 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T005 [P] Implement authentication/authorization framework
 - [ ] T006 [P] Setup API routing and middleware structure
 - [ ] T007 Create base models/entities that all stories depend on
-- [ ] T008 Configure error handling and logging infrastructure
+- [ ] T008 Configure error handling and logging infrastructure (for observability)
 - [ ] T009 Setup environment configuration management
-
-**Checkpoint**: Foundation ready - user story implementation can now begin in
-parallel
+- [ ] T010 [P] Implement CLI interface with proper text I/O protocols
+- [ ] T011 Configure language localization support (Chinese language output capability)
 
 ---
 

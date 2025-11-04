@@ -37,7 +37,13 @@ CLARIFICATION]
 
 _GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
-[Gates determined based on constitution file]
+**Constitution Requirements:**
+- Library-First Architecture: Confirm feature can be structured as standalone library
+- CLI Interface: Ensure text-in/out protocol is supported (stdin/args → stdout, errors → stderr)
+- Test-First: TDD approach required with tests written before implementation
+- Integration Testing: Identify areas requiring integration tests
+- Observability: Ensure structured logging and performance metrics
+- AI Output Language Requirement: If applicable, confirm Chinese language output support
 
 ## Project Structure
 

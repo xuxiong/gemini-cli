@@ -1,74 +1,49 @@
-# [PROJECT_NAME] Constitution
+<!-- 
+Sync Impact Report:
+- Version change: 1.0.0 → 1.0.1
+- Added sections: Principle 6 - AI Output Language Requirement
+- Templates requiring updates: plan-template.md, spec-template.md, tasks-template.md (✅ updated)
+- Modified principles: Added PRINCIPLE_6_AI_OUTPUT_CHINESE
+-->
 
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# @google/gemini-cli Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
+### I. Library-First Architecture
 
-<!-- Example: I. Library-First -->
+Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries
 
-[PRINCIPLE_1_DESCRIPTION]
+### II. CLI Interface
 
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats
 
-### [PRINCIPLE_2_NAME]
+### III. Test-First (NON-NEGOTIABLE)
 
-<!-- Example: II. CLI Interface -->
+TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced
 
-[PRINCIPLE_2_DESCRIPTION]
+### IV. Integration Testing
 
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas
 
-### [PRINCIPLE_3_NAME]
+### V. Observability
 
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
+Text I/O ensures debuggability; Structured logging required; Performance metrics collection and monitoring required for production systems
 
-[PRINCIPLE_3_DESCRIPTION]
+### VI. AI Output Language Requirement
 
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+All AI-generated content must be in Chinese language when requested by the user; Implementation must support language preference detection and response localization; All user-facing AI outputs must adhere to this requirement
 
-### [PRINCIPLE_4_NAME]
+## Additional Constraints
 
-<!-- Example: IV. Integration Testing -->
+Technology stack requirements: Node.js v20+, TypeScript, React for UI components; Compliance with Google's AI principles and responsible AI practices; Deployment policies follow Google's security standards
 
-[PRINCIPLE_4_DESCRIPTION]
+## Development Workflow
 
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
-
-### [PRINCIPLE_5_NAME]
-
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-
-[PRINCIPLE_5_DESCRIPTION]
-
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
-
-## [SECTION_2_NAME]
-
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+Code review requirements: All PRs must be reviewed by at least one senior developer; Testing gates require 80% test coverage; All changes must pass pre-commit hooks before merging
 
 ## Governance
 
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+This Constitution supersedes all other development practices; Amendments require documentation, team approval, and migration plan if necessary; All PRs/reviews must verify compliance with these principles
 
-[GOVERNANCE_RULES]
-
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last
-Amended**: [LAST_AMENDED_DATE]
-
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.1 | **Ratified**: 2025-06-13 | **Last Amended**: 2025-11-04

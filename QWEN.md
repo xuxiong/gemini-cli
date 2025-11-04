@@ -153,3 +153,15 @@ make preflight
 - macOS: Uses Seatbelt with permissive or restrictive profiles
 - Container-based: Docker/Podman support for stronger isolation
 - Proxy networking support to control outbound traffic
+
+## Active Technologies
+
+- TypeScript/JavaScript, Node.js v20+ + axios for HTTP requests, existing
+  project dependencies in package.json (001-openai-compatible-llm)
+- Local configuration file (plain text in user's config directory)
+  (001-openai-compatible-llm)
+
+## Recent Changes
+
+- 001-openai-compatible-llm: Added TypeScript/JavaScript, Node.js v20+ + axios
+  for HTTP requests, existing project dependencies in package.json

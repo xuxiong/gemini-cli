@@ -6,72 +6,50 @@
 
 import { HybridTokenStorage } from '../mcp/token-storage/hybrid-token-storage.js';
 import type { OAuthCredentials } from '../mcp/token-storage/types.js';
-import { debugLogger } from '../utils/debugLogger.js';
 
-const KEYCHAIN_SERVICE_NAME = 'gemini-cli-api-key';
-const DEFAULT_API_KEY_ENTRY = 'default-api-key';
+const SERVICE_NAME = 'third-party-openai-provider';
+const DEFAULT_SERVER_NAME = 'default-api-key';
 
-const storage = new HybridTokenStorage(KEYCHAIN_SERVICE_NAME);
+let storagePromise: Promise<HybridTokenStorage> | null = null;
 
-/**
- * Load cached API key
- */
-export async function loadApiKey(): Promise<string | null> {
-  try {
-    const credentials = await storage.getCredentials(DEFAULT_API_KEY_ENTRY);
-
-    if (credentials?.token?.accessToken) {
-      return credentials.token.accessToken;
-    }
-
-    return null;
-  } catch (error: unknown) {
-    // Ignore "file not found" error from FileTokenStorage, it just means no key is saved yet.
-    // This is common in fresh environments like e2e tests.
-    if (
-      error instanceof Error &&
-      error.message === 'Token file does not exist'
-    ) {
-      return null;
-    }
-
-    // Log other errors but don't crash, just return null so user can re-enter key
-    debugLogger.error('Failed to load API key from storage:', error);
-    return null;
+async function getStorage(): Promise<HybridTokenStorage> {
+  if (!storagePromise) {
+    storagePromise = Promise.resolve(new HybridTokenStorage(SERVICE_NAME));
   }
+  return await storagePromise;
 }
 
-/**
- * Save API key
- */
-export async function saveApiKey(
-  apiKey: string | null | undefined,
-): Promise<void> {
-  if (!apiKey || apiKey.trim() === '') {
-    await storage.deleteCredentials(DEFAULT_API_KEY_ENTRY);
-    return;
-  }
-
-  // Wrap API key in OAuthCredentials format as required by HybridTokenStorage
-  const credentials: OAuthCredentials = {
-    serverName: DEFAULT_API_KEY_ENTRY,
+function buildCredentials(apiKey: string): OAuthCredentials {
+  return {
+    serverName: DEFAULT_SERVER_NAME,
     token: {
       accessToken: apiKey,
       tokenType: 'ApiKey',
     },
     updatedAt: Date.now(),
   };
-
-  await storage.setCredentials(credentials);
 }
 
-/**
- * Clear cached API key
- */
-export async function clearApiKey(): Promise<void> {
-  try {
-    await storage.deleteCredentials(DEFAULT_API_KEY_ENTRY);
-  } catch (error: unknown) {
-    debugLogger.error('Failed to clear API key from storage:', error);
+export async function loadApiKey(): Promise<string | null> {
+  const storage = await getStorage();
+  const credentials = await storage.getCredentials(DEFAULT_SERVER_NAME);
+  return credentials?.token.accessToken ?? null;
+}
+
+export async function saveApiKey(
+  apiKey: string | null | undefined,
+): Promise<void> {
+  const storage = await getStorage();
+
+  if (!apiKey) {
+    await storage.deleteCredentials(DEFAULT_SERVER_NAME);
+    return;
   }
+
+  await storage.setCredentials(buildCredentials(apiKey));
+}
+
+export async function clearApiKey(): Promise<void> {
+  const storage = await getStorage();
+  await storage.deleteCredentials(DEFAULT_SERVER_NAME);
 }

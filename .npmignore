@@ -1,0 +1,14 @@
+node_modules/
+*.log
+.env*
+coverage/
+dist/
+build/
+.nyc_output/
+*.md
+.eslintcache
+**/tests
+**/test
+**/.specify
+**/.qwen
+**/specs

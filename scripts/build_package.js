@@ -18,7 +18,7 @@
 // limitations under the License.
 
 import { execSync } from 'node:child_process';
-import { writeFileSync } from 'node:fs';
+import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 if (!process.cwd().includes('packages')) {
@@ -27,11 +27,14 @@ if (!process.cwd().includes('packages')) {
 }
 
 // build typescript files
+const distPath = join(process.cwd(), 'dist');
+rmSync(distPath, { recursive: true, force: true });
 execSync('tsc --build', { stdio: 'inherit' });
 
 // copy .{md,json} files
 execSync('node ../../scripts/copy_files.js', { stdio: 'inherit' });
 
 // touch dist/.last_build
-writeFileSync(join(process.cwd(), 'dist', '.last_build'), '');
+mkdirSync(distPath, { recursive: true });
+writeFileSync(join(distPath, '.last_build'), '');
 process.exit(0);

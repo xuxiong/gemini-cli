@@ -22,6 +22,8 @@ import { LoggingContentGenerator } from './loggingContentGenerator.js';
 import { InstallationManager } from '../utils/installationManager.js';
 import { FakeContentGenerator } from './fakeContentGenerator.js';
 import { RecordingContentGenerator } from './recordingContentGenerator.js';
+import { OpenAICompatibleContentGenerator } from '../services/openaiCompatibleContentGenerator.js';
+import { getActiveThirdPartyProviderConfig } from '../config/thirdPartyConfig.js';
 
 /**
  * Interface abstracting the core functionalities for generating content and counting tokens.
@@ -49,6 +51,7 @@ export enum AuthType {
   USE_GEMINI = 'gemini-api-key',
   USE_VERTEX_AI = 'vertex-ai',
   CLOUD_SHELL = 'cloud-shell',
+  USE_THIRD_PARTY_OPENAI_COMPATIBLE = 'third-party-openai-compatible',
 }
 
 export type ContentGeneratorConfig = {
@@ -113,6 +116,15 @@ export async function createContentGenerator(
     if (gcConfig.fakeResponses) {
       return FakeContentGenerator.fromFile(gcConfig.fakeResponses);
     }
+
+    // Check if a third-party provider is configured and enabled
+    const thirdPartyProviderConfig =
+      getActiveThirdPartyProviderConfig(gcConfig);
+    if (thirdPartyProviderConfig) {
+      // Use OpenAI-compatible content generator for third-party providers
+      return new OpenAICompatibleContentGenerator(thirdPartyProviderConfig);
+    }
+
     const version = process.env['CLI_VERSION'] || process.version;
     const userAgent = `GeminiCLI/${version} (${process.platform}; ${process.arch})`;
     const baseHeaders: Record<string, string> = {

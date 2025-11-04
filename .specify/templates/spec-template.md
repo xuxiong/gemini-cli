@@ -85,14 +85,11 @@
 
 ### Functional Requirements
 
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create
-  accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email
-  addresses"]
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their
-  password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+- **FR-001**: System MUST follow library-first architecture with self-contained, testable modules
+- **FR-002**: System MUST expose functionality via CLI with proper text-in/text-out protocols
+- **FR-003**: Users MUST be able to interact with system through command-line interface
+- **FR-004**: System MUST support Chinese language output when requested by user
+- **FR-005**: System MUST provide structured logging and observability features
 
 _Example of marking unclear requirements:_
 

@@ -6,6 +6,7 @@
 
 // Export config
 export * from './config/config.js';
+export * from './config/thirdPartyConfig.js';
 export * from './output/types.js';
 export * from './output/json-formatter.js';
 export * from './output/stream-json-formatter.js';
@@ -30,6 +31,7 @@ export * from './core/geminiRequest.js';
 export * from './core/coreToolScheduler.js';
 export * from './core/nonInteractiveToolExecutor.js';
 export * from './core/recordingContentGenerator.js';
+export * from './services/openaiCompatibleContentGenerator.js';
 
 export * from './fallback/types.js';
 
