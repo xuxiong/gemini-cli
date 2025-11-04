@@ -4,7 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { OpenDialogActionReturn, SlashCommand } from './types.js';
+import type {
+  SlashCommand,
+  MessageActionReturn,
+  CommandContext,
+} from './types.js';
+import { CommandKind } from './types.js';
 import {
   setLanguage,
   getAvailableLanguages,
@@ -15,14 +20,18 @@ import {
 export const localeCommand: SlashCommand = {
   name: 'locale',
   description: t('app.commands.locale.description'),
-  examples: ['/locale en', '/locale zh-CN'],
-  action: async (args: string): Promise<OpenDialogActionReturn> => {
+  kind: CommandKind.BUILT_IN,
+  action: async (
+    context: CommandContext,
+    args: string,
+  ): Promise<MessageActionReturn> => {
     const [langCode] = args.split(' ');
 
     if (!langCode) {
       return {
-        type: 'info',
-        text: t('app.commands.locale.currentLanguage', {
+        type: 'message',
+        messageType: 'info',
+        content: t('app.commands.locale.currentLanguage', {
           language: getLanguage(),
         }),
       };
@@ -34,15 +43,17 @@ export const localeCommand: SlashCommand = {
     if (validLangCode) {
       setLanguage(validLangCode);
       return {
-        type: 'info',
-        text: t('app.commands.locale.languageChanged', {
+        type: 'message',
+        messageType: 'info',
+        content: t('app.commands.locale.languageChanged', {
           language: langCode,
         }),
       };
     } else {
       return {
-        type: 'error',
-        text: t('app.commands.locale.unsupportedLanguage', {
+        type: 'message',
+        messageType: 'error',
+        content: t('app.commands.locale.unsupportedLanguage', {
           language: langCode,
           available: availableLanguages.join(', '),
         }),

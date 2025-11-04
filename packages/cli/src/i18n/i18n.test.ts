@@ -10,7 +10,7 @@ import {
   setLanguage,
   getLanguage,
   getAvailableLanguages,
-} from '../i18n/i18n';
+} from '../i18n/i18n.js';
 
 describe('i18n', () => {
   beforeEach(() => {

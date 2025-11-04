@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import en from './locales/en.json'; // eslint-disable-line import/no-internal-modules
-import zhCN from './locales/zh-CN.json'; // eslint-disable-line import/no-internal-modules
+import en from './locales/en.json' with { type: 'json' }; // eslint-disable-line import/no-internal-modules
+import zhCN from './locales/zh-CN.json' with { type: 'json' }; // eslint-disable-line import/no-internal-modules
 
 // Define the supported locales
 export type Locale = 'en' | 'zh-CN';
@@ -28,9 +28,9 @@ const getInitialLanguage = (): Locale => {
   // Check if user has set a language preference in settings
   // This will be implemented to read from the user's config later
   const userPreferredLang =
-    process.env.GEMINI_CLI_LANG ||
-    process.env.LANG?.substring(0, 5) ||
-    process.env.LC_ALL?.substring(0, 5) ||
+    process.env['GEMINI_CLI_LANG'] ||
+    process.env['LANG']?.substring(0, 5) ||
+    process.env['LC_ALL']?.substring(0, 5) ||
     'en';
 
   // Return supported language, defaulting to English
@@ -105,7 +105,8 @@ export const setLanguage = (lang: Locale): void => {
 export const getLanguage = (): Locale => currentLanguage;
 
 // Function to get all available languages
-export const getAvailableLanguages = (): Locale[] => Object.keys(resources) as Locale[];
+export const getAvailableLanguages = (): Locale[] =>
+  Object.keys(resources) as Locale[];
 
 // Initialize with the initial language setting
 currentLanguage = getInitialLanguage();
