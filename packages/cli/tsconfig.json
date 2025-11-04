@@ -2,16 +2,17 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
+    "rootDir": ".", // <--- 添加这一行
     "jsx": "react-jsx",
     "lib": ["DOM", "DOM.Iterable", "ES2023"],
-    "types": ["node", "vitest/globals"]
+    "types": ["node", "vitest/globals"],
+    "moduleResolution": "nodenext"
   },
   "include": [
     "index.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.json",
-    "./package.json"
+    "src/**/*.json" // <--- 重新添加这一行
   ],
   "exclude": ["node_modules", "dist"],
   "references": [{ "path": "../core" }]

@@ -111,7 +111,11 @@
   "ui": {
     "input": {
       "placeholder": "向 Gemini 提问或输入 ! 运行 Shell 命令",
-      "shellPlaceholder": "输入 Shell 命令或自然语言指令"
+      "shellPlaceholder": "输入 Shell 命令或自然语言指令",
+      "vimPlaceholder": "  按 'i' 进入 INSERT 模式，按 'Esc' 进入 NORMAL 模式。"
+    },
+    "auth": {
+      "apiKeyPlaceholder": "在此处粘贴您的 API 密钥"
     },
     "status": {
       "idle": "空闲",
@@ -124,6 +128,40 @@
       "tip2": "请具体说明以获得最佳结果。",
       "tip3": "创建 {{fileName}} 文件以自定义与 Gemini 的交互。",
       "moreInfo": "了解更多信息。"
+    },
+    "stats": {
+      "interactionSummary": "交互摘要",
+      "sessionId": "会话 ID:",
+      "toolCalls": "工具调用:",
+      "successRate": "成功率:",
+      "userAgreement": "用户同意:",
+      "codeChanges": "代码更改:",
+      "performance": "性能",
+      "wallTime": "总时间:",
+      "agentActive": "代理活跃:",
+      "apiTime": "API 时间:",
+      "toolTime": "工具时间:"
+    },
+    "modelStats": {
+      "title": "模型统计信息",
+      "metric": "指标",
+      "api": "API",
+      "requests": "请求",
+      "errors": "错误",
+      "avgLatency": "平均延迟",
+      "tokens": "令牌",
+      "total": "总计",
+      "prompt": "提示",
+      "cached": "缓存",
+      "thoughts": "思考",
+      "tool": "工具",
+      "output": "输出"
+    },
+    "session": {
+      "powerDownMessage": "代理正在关闭。再见！"
+    },
+    "ideIntegration": {
+      "dontAskAgain": "不，不再询问"
     }
   }
 }

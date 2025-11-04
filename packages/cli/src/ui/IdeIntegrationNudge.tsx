@@ -10,6 +10,7 @@ import type { RadioSelectItem } from './components/shared/RadioButtonSelect.js';
 import { RadioButtonSelect } from './components/shared/RadioButtonSelect.js';
 import { useKeypress } from './hooks/useKeypress.js';
 import { theme } from './semantic-colors.js';
+import { t } from '../i18n/i18n.js';
 
 export type IdeIntegrationNudgeResult = {
   userSelection: 'yes' | 'no' | 'dismiss';
@@ -61,7 +62,7 @@ export function IdeIntegrationNudge({
       key: 'No (esc)',
     },
     {
-      label: "No, don't ask again",
+      label: t('ui.ideIntegration.dontAskAgain'),
       value: {
         userSelection: 'dismiss',
         isExtensionPreInstalled,

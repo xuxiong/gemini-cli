@@ -27,6 +27,7 @@ import { ApprovalMode } from '@google/gemini-cli-core';
 import { StreamingState } from '../types.js';
 import { ConfigInitDisplay } from '../components/ConfigInitDisplay.js';
 import { TodoTray } from './messages/Todo.js';
+import { t } from '../../i18n/i18n.js';
 
 export const Composer = () => {
   const config = useConfig();
@@ -153,8 +154,8 @@ export const Composer = () => {
           popAllMessages={uiActions.popAllMessages}
           placeholder={
             vimEnabled
-              ? "  Press 'i' for INSERT mode and 'Esc' for NORMAL mode."
-              : '  Type your message or @path/to/file'
+              ? t('ui.input.vimPlaceholder')
+              : t('ui.input.placeholder')
           }
           setQueueErrorMessage={uiActions.setQueueErrorMessage}
           streamingState={uiState.streamingState}

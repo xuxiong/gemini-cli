@@ -5,12 +5,7 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import {
-  t,
-  setLanguage,
-  getLanguage,
-  getAvailableLanguages,
-} from '../i18n/i18n.js';
+import { t, setLanguage, getLanguage, getAvailableLanguages } from './i18n.js';
 
 describe('i18n', () => {
   beforeEach(() => {

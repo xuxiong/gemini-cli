@@ -10,6 +10,7 @@ import { theme } from '../semantic-colors.js';
 import { TextInput } from '../components/shared/TextInput.js';
 import { useTextBuffer } from '../components/shared/text-buffer.js';
 import { useUIState } from '../contexts/UIStateContext.js';
+import { t } from '../../i18n/i18n.js';
 
 interface ApiAuthDialogProps {
   onSubmit: (apiKey: string) => void;
@@ -78,7 +79,7 @@ export function ApiAuthDialog({
             buffer={buffer}
             onSubmit={handleSubmit}
             onCancel={onCancel}
-            placeholder="Paste your API key here"
+            placeholder={t('ui.auth.apiKeyPlaceholder')}
           />
         </Box>
       </Box>
