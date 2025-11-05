@@ -8,28 +8,27 @@
  * CLI command for testing third-party provider connectivity.
  */
 
-import type { Config } from '@google/gemini-cli-core';
-import type { LoadedSettings } from '../config/settings.js';
+import type { CommandContext, SlashCommand } from '../ui/commands/types.js';
+import { CommandKind } from '../ui/commands/types.js';
 import {
   getActiveThirdPartyProviderConfig,
   OpenAICompatibleContentGenerator,
 } from '@google/gemini-cli-core';
 import type { GenerateContentParameters } from '@google/genai';
+import type { Config } from '@google/gemini-cli-core';
 
-interface TestProviderCommandContext {
-  config: Config;
-  settings: LoadedSettings;
-}
-
-export const testProviderCommand = {
+export const testProviderCommand: SlashCommand = {
   name: 'test-provider',
   description: 'Test connectivity to the configured third-party provider',
-  action: async (context: TestProviderCommandContext, _args: string) => {
+  kind: CommandKind.BUILT_IN,
+  action: async (context: CommandContext, _args: string) => {
     console.log('Testing third-party provider connectivity...');
 
     try {
       // Get the active third-party provider configuration
-      const providerConfig = getActiveThirdPartyProviderConfig(context.config);
+      const providerConfig = getActiveThirdPartyProviderConfig(
+        context.services.config as unknown as Config,
+      );
 
       if (!providerConfig) {
         console.log(

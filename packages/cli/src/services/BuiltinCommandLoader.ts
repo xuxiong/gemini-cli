@@ -14,6 +14,7 @@ import { bugCommand } from '../ui/commands/bugCommand.js';
 import { chatCommand } from '../ui/commands/chatCommand.js';
 import { clearCommand } from '../ui/commands/clearCommand.js';
 import { compressCommand } from '../ui/commands/compressCommand.js';
+import { configCommand } from '../commands/config.js';
 import { copyCommand } from '../ui/commands/copyCommand.js';
 import { corgiCommand } from '../ui/commands/corgiCommand.js';
 import { docsCommand } from '../ui/commands/docsCommand.js';
@@ -33,6 +34,7 @@ import { quitCommand } from '../ui/commands/quitCommand.js';
 import { restoreCommand } from '../ui/commands/restoreCommand.js';
 import { statsCommand } from '../ui/commands/statsCommand.js';
 import { themeCommand } from '../ui/commands/themeCommand.js';
+import { testProviderCommand } from '../commands/testProvider.js';
 import { toolsCommand } from '../ui/commands/toolsCommand.js';
 import { settingsCommand } from '../ui/commands/settingsCommand.js';
 import { vimCommand } from '../ui/commands/vimCommand.js';
@@ -62,6 +64,7 @@ export class BuiltinCommandLoader implements ICommandLoader {
       chatCommand,
       clearCommand,
       compressCommand,
+      configCommand,
       copyCommand,
       corgiCommand,
       docsCommand,
@@ -82,6 +85,7 @@ export class BuiltinCommandLoader implements ICommandLoader {
       restoreCommand(this.config),
       statsCommand,
       themeCommand,
+      testProviderCommand,
       toolsCommand,
       settingsCommand,
       vimCommand,
