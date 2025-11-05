@@ -89,7 +89,7 @@ components:
           type: string
           format: uri
           description: The base URL for the OpenAI-compatible API endpoint
-          example: "https://api.openrouter.ai/v1"
+          example: 'https://api.openrouter.ai/v1'
         apiKey:
           type: string
           description: The API key for authenticating with the third-party service
@@ -97,7 +97,7 @@ components:
         model:
           type: string
           description: The specific model identifier to use with the provider
-          example: "openai/gpt-3.5-turbo"
+          example: 'openai/gpt-3.5-turbo'
         enabled:
           type: boolean
           description: Flag to enable/disable the third-party provider
@@ -105,7 +105,7 @@ components:
         providerName:
           type: string
           description: Name of the provider
-          example: "OpenRouter"
+          example: 'OpenRouter'
         timeout:
           type: integer
           description: Request timeout in milliseconds
@@ -121,7 +121,7 @@ components:
         model:
           type: string
           description: ID of the model to use
-          example: "openai/gpt-3.5-turbo"
+          example: 'openai/gpt-3.5-turbo'
         messages:
           type: array
           items:

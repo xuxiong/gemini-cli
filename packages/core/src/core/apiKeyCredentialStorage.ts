@@ -31,9 +31,21 @@ function buildCredentials(apiKey: string): OAuthCredentials {
 }
 
 export async function loadApiKey(): Promise<string | null> {
-  const storage = await getStorage();
-  const credentials = await storage.getCredentials(DEFAULT_SERVER_NAME);
-  return credentials?.token.accessToken ?? null;
+  try {
+    const storage = await getStorage();
+    const credentials = await storage.getCredentials(DEFAULT_SERVER_NAME);
+    return credentials?.token.accessToken ?? null;
+  } catch (error: unknown) {
+    if (
+      error instanceof Error &&
+      error.message === 'Token file does not exist'
+    ) {
+      return null;
+    }
+
+    console.warn('Failed to load API key from storage:', error);
+    return null;
+  }
 }
 
 export async function saveApiKey(

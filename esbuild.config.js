@@ -86,7 +86,6 @@ const cliConfig = {
   plugins: createWasmPlugins(),
   alias: {
     'is-in-ci': path.resolve(__dirname, 'packages/cli/src/patches/is-in-ci.ts'),
-    '../i18n/i18n.js': path.resolve(__dirname, 'packages/cli/src/i18n/i18n.ts'),
   },
   metafile: true,
 };

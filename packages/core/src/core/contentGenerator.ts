@@ -117,14 +117,6 @@ export async function createContentGenerator(
       return FakeContentGenerator.fromFile(gcConfig.fakeResponses);
     }
 
-    // Check if a third-party provider is configured and enabled
-    const thirdPartyProviderConfig =
-      getActiveThirdPartyProviderConfig(gcConfig);
-    if (thirdPartyProviderConfig) {
-      // Use OpenAI-compatible content generator for third-party providers
-      return new OpenAICompatibleContentGenerator(thirdPartyProviderConfig);
-    }
-
     const version = process.env['CLI_VERSION'] || process.version;
     const userAgent = `GeminiCLI/${version} (${process.platform}; ${process.arch})`;
     const baseHeaders: Record<string, string> = {
@@ -168,6 +160,25 @@ export async function createContentGenerator(
       });
       return new LoggingContentGenerator(googleGenAI.models, gcConfig);
     }
+
+    // Only check for third-party provider if the auth type is specifically for third-party
+    if (config.authType === AuthType.USE_THIRD_PARTY_OPENAI_COMPATIBLE) {
+      const thirdPartyProviderConfig =
+        getActiveThirdPartyProviderConfig(gcConfig);
+      if (thirdPartyProviderConfig && thirdPartyProviderConfig.enabled) {
+        // Use OpenAI-compatible content generator for third-party providers
+        return new OpenAICompatibleContentGenerator(thirdPartyProviderConfig);
+      }
+    }
+
+    // Fallback: check for any enabled third-party provider if no specific auth type matched
+    const thirdPartyProviderConfig =
+      getActiveThirdPartyProviderConfig(gcConfig);
+    if (thirdPartyProviderConfig && thirdPartyProviderConfig.enabled) {
+      // Use OpenAI-compatible content generator for third-party providers
+      return new OpenAICompatibleContentGenerator(thirdPartyProviderConfig);
+    }
+
     throw new Error(
       `Error creating contentGenerator: Unsupported authType: ${config.authType}`,
     );

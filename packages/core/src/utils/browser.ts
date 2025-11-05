@@ -12,6 +12,11 @@
  * @returns True if the tool should attempt to launch a browser.
  */
 export function shouldAttemptBrowserLaunch(): boolean {
+  // Environment variable to force disable browser launch
+  if (process.env['NO_BROWSER']) {
+    return false;
+  }
+
   // A list of browser names that indicate we should not attempt to open a
   // web browser for the user.
   const browserBlocklist = ['www-browser'];
@@ -32,10 +37,10 @@ export function shouldAttemptBrowserLaunch(): boolean {
   // (checked below for Linux).
   const isSSH = !!process.env['SSH_CONNECTION'];
 
-  // On Linux, the presence of a display server is a strong indicator of a GUI.
-  if (process.platform === 'linux') {
-    // These are environment variables that can indicate a running compositor on
-    // Linux.
+  // On Linux, if we're in an SSH session without a display, we should avoid launching browser
+  // But if we're not in SSH, we can attempt to launch a browser (the open library will handle
+  // different systems appropriately)
+  if (process.platform === 'linux' && isSSH) {
     const displayVariables = ['DISPLAY', 'WAYLAND_DISPLAY', 'MIR_SOCKET'];
     const hasDisplay = displayVariables.some((v) => !!process.env[v]);
     if (!hasDisplay) {
@@ -43,14 +48,12 @@ export function shouldAttemptBrowserLaunch(): boolean {
     }
   }
 
-  // If in an SSH session on a non-Linux OS (e.g., macOS), don't launch browser.
-  // The Linux case is handled above (it's allowed if DISPLAY is set).
+  // If in an SSH session on a non-Linux OS (e.g., macOS) without display, don't launch browser.
   if (isSSH && process.platform !== 'linux') {
     return false;
   }
 
-  // For non-Linux OSes, we generally assume a GUI is available
-  // unless other signals (like SSH) suggest otherwise.
+  // For other cases, we generally assume it's safe to attempt to launch a browser
   // The `open` command's error handling will catch final edge cases.
   return true;
 }

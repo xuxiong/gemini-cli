@@ -11,10 +11,6 @@
 import type { ThirdPartyProviderConfig } from '../models/thirdPartyProviderConfig.js';
 import type { Config } from './config.js';
 
-type ConfigWithThirdParty = Config & {
-  thirdPartyProvider?: Partial<ThirdPartyProviderConfig> | null;
-};
-
 /**
  * Manages third-party provider configurations
  */
@@ -28,21 +24,35 @@ export class ThirdPartyConfigManager {
     config: Config,
   ): ThirdPartyProviderConfig | undefined {
     // Access the third-party provider settings from the main config
-    // This would typically access the config object that contains the settings
-    // In the actual implementation, this would access the settings from the user's config file
-    const sourceConfig = config as ConfigWithThirdParty;
-    const settings = sourceConfig.thirdPartyProvider ?? undefined;
+    // Using index notation to safely access potentially extended config properties
+    // since direct intersection with Config causes issues with private fields
+    const configWithOptionalThirdParty = config as Config & {
+      thirdPartyProvider?: Partial<ThirdPartyProviderConfig> | null;
+      model?: {
+        thirdPartyProvider?: Partial<ThirdPartyProviderConfig> | null;
+      };
+    };
+
+    const settings =
+      configWithOptionalThirdParty.thirdPartyProvider ??
+      configWithOptionalThirdParty.model?.thirdPartyProvider ??
+      undefined;
 
     if (!settings || !settings.enabled) {
       return undefined;
     }
 
+    // Only return a config if it has the required fields
+    if (!settings.endpoint || !settings.apiKey) {
+      return undefined;
+    }
+
     return {
-      endpoint: settings.endpoint ?? '',
-      apiKey: settings.apiKey ?? '',
+      endpoint: settings.endpoint,
+      apiKey: settings.apiKey,
       model: settings.model,
       name: settings.name,
-      enabled: settings.enabled ?? false,
+      enabled: settings.enabled,
     };
   }
 
