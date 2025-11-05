@@ -24,18 +24,22 @@ export class ThirdPartyConfigManager {
     config: Config,
   ): ThirdPartyProviderConfig | undefined {
     // Access the third-party provider settings from the main config
-    // Using index notation to safely access potentially extended config properties
-    // since direct intersection with Config causes issues with private fields
-    const configWithOptionalThirdParty = config as Config & {
-      thirdPartyProvider?: Partial<ThirdPartyProviderConfig> | null;
-      model?: {
-        thirdPartyProvider?: Partial<ThirdPartyProviderConfig> | null;
-      };
-    };
+    // Using unknown as intermediate type to safely access potentially extended config properties
+    const configAsUnknown = config as unknown;
 
     const settings =
-      configWithOptionalThirdParty.thirdPartyProvider ??
-      configWithOptionalThirdParty.model?.thirdPartyProvider ??
+      (
+        configAsUnknown as {
+          thirdPartyProvider?: Partial<ThirdPartyProviderConfig> | null;
+        }
+      ).thirdPartyProvider ??
+      (
+        configAsUnknown as {
+          model?: {
+            thirdPartyProvider?: Partial<ThirdPartyProviderConfig> | null;
+          };
+        }
+      ).model?.thirdPartyProvider ??
       undefined;
 
     if (!settings || !settings.enabled) {
