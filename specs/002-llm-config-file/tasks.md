@@ -1,12 +1,14 @@
 # Implementation Tasks: LLM Configuration via File
 
-**Feature**: LLM Configuration via File | **Branch**: `002-llm-config-file` |
-**Spec**: [spec.md](./spec.md)
+**Feature**: LLM Configuration via .env File | **Branch**: `002-llm-config-file`
+| **Spec**: [spec.md](./spec.md)
 
-**Goal**: Completely remove the `/config` command and implement automatic
-file-based LLM configuration. Configuration will be automatically read from a
-.env file during system startup instead of prompting users in any interface,
-addressing security concerns and improving user convenience.
+**Goal**: Completely remove the `/config` command and implement exclusive
+file-based LLM configuration using .env files. Configuration will be
+automatically read from a .env file during system startup instead of prompting
+users in any interface, addressing security concerns and improving user
+convenience. The system will no longer support interactive configuration
+methods.
 
 ## Phase 1: Setup
 

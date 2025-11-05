@@ -122,8 +122,8 @@ guidance to the user.
   is missing or contains errors
 - **FR-004**: System MUST validate the configuration file format before
   attempting to use LLM credentials
-- **FR-005**: System MUST continue to support existing LLM configuration methods
-  for backward compatibility
+- **FR-005**: System MUST use .env file configuration as the sole method for LLM
+  credentials, replacing all existing interactive configuration methods
 - **FR-006**: System MUST provide documentation on configuration file format and
   location
 - **FR-007**: System MUST store credentials in plain text with strict file
@@ -163,12 +163,12 @@ guidance to the user.
   without entering sensitive information through the interactive interface (100%
   of operations use config file credentials)
 - **SC-002**: System can successfully read and authenticate with LLM service
-  using credentials from configuration file (95% success rate in authentication
-  attempts)
+  using credentials from .env configuration file (95% success rate in
+  authentication attempts)
 - **SC-003**: Users can set up the configuration file within 5 minutes following
   provided documentation (usability target)
-- **SC-004**: Reduce user interface prompts for LLM credentials by 100% when
-  configuration file is properly set up
+- **SC-004**: Eliminate user interface prompts for LLM credentials by 100% as
+  all configuration is done through .env files
 - **SC-005**: Configuration file errors are clearly communicated to users, with
   90% of users able to correct configuration issues on first attempt based on
   error messages

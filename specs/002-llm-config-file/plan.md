@@ -8,12 +8,12 @@
 
 ## Summary
 
-Completely remove the `/config` command and implement automatic file-based LLM
-configuration. Configuration will be automatically read from a .env file during
-system startup instead of prompting users in any interface, addressing security
-concerns and improving user convenience. The CLI will attempt to load
-configuration from a .env file at startup, making the interactive configuration
-command unnecessary.
+Completely remove the `/config` command and implement exclusive file-based LLM
+configuration using .env files. Configuration will be automatically read from a
+.env file during system startup instead of prompting users in any interface,
+addressing security concerns and improving user convenience. The CLI will
+attempt to load configuration from a .env file at startup, and will no longer
+support interactive configuration methods.
 
 ## Technical Context
 
