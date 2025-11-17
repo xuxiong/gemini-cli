@@ -44,30 +44,21 @@ jobs:
       - name: Prepare packages for publishing
         run: npm run prepare:package
 
-      # For a monorepo, we'll need to modify package names before publishing
-      # This is a simplified example for a single package
-      - name: Modify package name for your npm organization
-        run: |
-          # Create a copy of the package with your organization name
-          cp -r packages/cli packages/cli-srdcloud
-          
-          # Update package.json with your organization name
-          sed -i 's|"name": "@google/gemini-cli"|"name": "@srdcloud/gemini-cli"|g' packages/cli-srdcloud/package.json
-          
-          # Remove private: true if it exists in the copied package.json
-          sed -i 's|"private": "true"||g' packages/cli-srdcloud/package.json
-          sed -i 's|"private": true||g' packages/cli-srdcloud/package.json
-
-      # Configure npm for publishing
       - name: Configure npm registry for publishing
-        run: |
-          npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
-          npm config set scope @srdcloud
+        run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
 
-      # Publish the modified package
-      - name: Publish to npm
-        working-directory: packages/cli-srdcloud
+      - name: Publish packages to npm
         run: |
-          npm publish --provenance --access public --tag ${{ inputs.tag || 'latest' }}
+          for package_dir in packages/*/; do
+            if [ -f "$package_dir/package.json" ]; then
+              # Skip test-utils and other private packages
+              if ! grep -q '"private": true' "$package_dir/package.json"; then
+                echo "Publishing $(basename $package_dir)..."
+                cd "$package_dir"
+                npm publish --provenance --access public --tag ${{ inputs.tag || 'latest' }}
+                cd - > /dev/null
+              fi
+            fi
+          done
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
