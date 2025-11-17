@@ -44,6 +44,26 @@ jobs:
       - name: Prepare packages for publishing
         run: npm run prepare:package
 
+      - name: Rename packages to @srdcloud scope
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            const packagesDir = 'packages';
+            
+            fs.readdirSync(packagesDir).forEach(dir => {
+              const pkgPath = path.join(packagesDir, dir, 'package.json');
+              if (fs.existsSync(pkgPath)) {
+                const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+                if (pkg.private !== true) {
+                  pkg.name = pkg.name.replace('@google/', '@srdcloud/').replace('gemini-cli-vscode-ide-companion', '@srdcloud/gemini-cli-vscode-ide-companion');
+                  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+                  console.log(\`Updated \${pkg.name}\`);
+                }
+              }
+            });
+          "
+
       - name: Configure npm registry for publishing
         run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
 
