@@ -1,0 +1,73 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'npm tag to publish to (e.g., latest, beta, next)'
+        required: true
+        default: 'latest'
+        type: 'string'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # This is required for provenance generation
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '>=20.0.0'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build packages
+        run: npm run build:packages
+
+      - name: Build bundle
+        run: npm run bundle
+
+      - name: Prepare packages for publishing
+        run: npm run prepare:package
+
+      # For a monorepo, we'll need to modify package names before publishing
+      # This is a simplified example for a single package
+      - name: Modify package name for your npm organization
+        run: |
+          # Create a copy of the package with your organization name
+          cp -r packages/cli packages/cli-srdcloud
+          
+          # Update package.json with your organization name
+          sed -i 's|"name": "@google/gemini-cli"|"name": "@srdcloud/gemini-cli"|g' packages/cli-srdcloud/package.json
+          
+          # Remove private: true if it exists in the copied package.json
+          sed -i 's|"private": "true"||g' packages/cli-srdcloud/package.json
+          sed -i 's|"private": true||g' packages/cli-srdcloud/package.json
+
+      # Configure npm for publishing
+      - name: Configure npm registry for publishing
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+          npm config set scope @srdcloud
+
+      # Publish the modified package
+      - name: Publish to npm
+        working-directory: packages/cli-srdcloud
+        run: |
+          npm publish --provenance --access public --tag ${{ inputs.tag || 'latest' }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
