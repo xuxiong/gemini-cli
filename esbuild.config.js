@@ -69,6 +69,7 @@ function createWasmPlugins() {
 }
 
 const external = [
+  '@srdcloud/gemini-cli-core',
   '@lydell/node-pty',
   'node-pty',
   '@lydell/node-pty-darwin-arm64',
