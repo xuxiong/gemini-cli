@@ -38,13 +38,7 @@ jobs:
       - name: Build packages
         run: npm run build:packages
 
-      - name: Build bundle
-        run: npm run bundle
-
-      - name: Prepare packages for publishing
-        run: npm run prepare:package
-
-      - name: Rename packages to @srdcloud scope
+      - name: Rename packages to @srdcloud scope (before bundle)
         run: |
           node -e "
             const fs = require('fs');
@@ -69,6 +63,76 @@ jobs:
               }
             });
           "
+
+      - name: Update dependencies to use @srdcloud scope in package.json files
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            const packagesDir = 'packages';
+            
+            fs.readdirSync(packagesDir).forEach(dir => {
+              const pkgPath = path.join(packagesDir, dir, 'package.json');
+              if (fs.existsSync(pkgPath)) {
+                const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+                
+                // Update dependencies
+                if (pkg.dependencies) {
+                  Object.keys(pkg.dependencies).forEach(key => {
+                    if (key.includes('@google/gemini-cli')) {
+                      pkg.dependencies[key.replace('@google/', '@srdcloud/')] = pkg.dependencies[key];
+                      delete pkg.dependencies[key];
+                    }
+                  });
+                }
+                
+                // Update devDependencies
+                if (pkg.devDependencies) {
+                  Object.keys(pkg.devDependencies).forEach(key => {
+                    if (key.includes('@google/gemini-cli')) {
+                      pkg.devDependencies[key.replace('@google/', '@srdcloud/')] = pkg.devDependencies[key];
+                      delete pkg.devDependencies[key];
+                    }
+                  });
+                }
+                
+                fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+              }
+            });
+          "
+
+      - name: Update root package.json dependencies
+        run: |
+          node -e "
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            
+            if (pkg.dependencies) {
+              Object.keys(pkg.dependencies).forEach(key => {
+                if (key.includes('@google/gemini-cli')) {
+                  pkg.dependencies[key.replace('@google/', '@srdcloud/')] = pkg.dependencies[key];
+                  delete pkg.dependencies[key];
+                }
+              });
+            }
+            
+            if (pkg.devDependencies) {
+              Object.keys(pkg.devDependencies).forEach(key => {
+                if (key.includes('@google/gemini-cli')) {
+                  pkg.devDependencies[key.replace('@google/', '@srdcloud/')] = pkg.devDependencies[key];
+                  delete pkg.devDependencies[key];
+                }
+              });
+            }
+            
+            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+
+      - name: Build bundle
+        run: npm run bundle
+
+      - name: Prepare packages for publishing
+        run: npm run prepare:package
 
       - name: Configure npm registry for publishing
         run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
