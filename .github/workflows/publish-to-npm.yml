@@ -101,40 +101,10 @@ jobs:
             });
           "
 
-      - name: Update root package.json dependencies
-        run: |
-          node -e "
-            const fs = require('fs');
-            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-            
-            if (pkg.dependencies) {
-              Object.keys(pkg.dependencies).forEach(key => {
-                if (key.includes('@google/gemini-cli')) {
-                  pkg.dependencies[key.replace('@google/', '@srdcloud/')] = pkg.dependencies[key];
-                  delete pkg.dependencies[key];
-                }
-              });
-            }
-            
-            if (pkg.devDependencies) {
-              Object.keys(pkg.devDependencies).forEach(key => {
-                if (key.includes('@google/gemini-cli')) {
-                  pkg.devDependencies[key.replace('@google/', '@srdcloud/')] = pkg.devDependencies[key];
-                  delete pkg.devDependencies[key];
-                }
-              });
-            }
-            
-            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
-          "
-
-      - name: Update source code imports to use @srdcloud scope
-        run: |
-          find packages -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" | xargs sed -i "s|from '@google/gemini-cli|from '@srdcloud/gemini-cli|g"
-          find packages -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" | xargs sed -i "s|import '@google/gemini-cli|import '@srdcloud/gemini-cli|g"
-
       - name: Build bundle
         run: npm run bundle
+        env:
+          NPM_PUBLISH_MODE: 'true'
 
       - name: Prepare packages for publishing
         run: npm run prepare:package

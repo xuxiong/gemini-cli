@@ -51,7 +51,19 @@ function createWasmPlugins() {
     },
   };
 
-  return [wasmBinaryPlugin, wasmLoader({ mode: 'embedded' })];
+  const remapPlugin = {
+    name: 'remap-google-to-srdcloud',
+    setup(build) {
+      if (process.env.NPM_PUBLISH_MODE === 'true') {
+        build.onResolve({ filter: /^@google\/gemini-cli/ }, (args) => {
+          const remapped = args.path.replace('@google/', '@srdcloud/');
+          return { path: remapped, external: true };
+        });
+      }
+    },
+  };
+
+  return [remapPlugin, wasmBinaryPlugin, wasmLoader({ mode: 'embedded' })];
 }
 
 const external = [
