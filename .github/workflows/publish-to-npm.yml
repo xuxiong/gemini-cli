@@ -35,6 +35,46 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Update version for nightly builds
+        if: github.event_name == 'push'
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            
+            // Get current timestamp
+            const now = new Date();
+            const timestamp = now.toISOString().split('T')[0].replace(/-/g, '');
+            const gitHash = '${{ github.sha }}'.substring(0, 7);
+            
+            // Get base version from root package.json
+            const rootPkgPath = 'package.json';
+            const rootPkg = JSON.parse(fs.readFileSync(rootPkgPath, 'utf8'));
+            const baseVersion = rootPkg.version.split('-')[0];
+            
+            // Set new nightly version
+            const newVersion = \`\${baseVersion}-nightly.\${timestamp}.\${gitHash}\`;
+            
+            // Update root package.json
+            rootPkg.version = newVersion;
+            fs.writeFileSync(rootPkgPath, JSON.stringify(rootPkg, null, 2) + '\n');
+            
+            // Update all package.json files in packages/
+            const packagesDir = 'packages';
+            if (fs.existsSync(packagesDir)) {
+              fs.readdirSync(packagesDir).forEach(dir => {
+                const pkgPath = path.join(packagesDir, dir, 'package.json');
+                if (fs.existsSync(pkgPath)) {
+                  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+                  pkg.version = newVersion;
+                  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+                }
+              });
+            }
+            
+            console.log('Updated all versions to: ' + newVersion);
+          "
+
       - name: Build packages
         run: npm run build:packages
 
