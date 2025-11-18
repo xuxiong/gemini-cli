@@ -57,6 +57,12 @@ jobs:
                 const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
                 if (pkg.private !== true) {
                   pkg.name = pkg.name.replace('@google/', '@srdcloud/').replace('gemini-cli-vscode-ide-companion', '@srdcloud/gemini-cli-vscode-ide-companion');
+                  
+                  // Fix repository URL to match the actual GitHub repository
+                  if (pkg.repository && pkg.repository.url) {
+                    pkg.repository.url = pkg.repository.url.replace('google-gemini/gemini-cli', 'xuxiong/gemini-cli');
+                  }
+                  
                   fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
                   console.log(\`Updated \${pkg.name}\`);
                 }
