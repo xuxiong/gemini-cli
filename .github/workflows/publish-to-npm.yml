@@ -146,6 +146,65 @@ jobs:
         env:
           NPM_PUBLISH_MODE: 'true'
 
+      - name: Rewrite compiled imports from @google to @srdcloud scope
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            
+            // Find and update all dist/index.js and dist/src/index.js files
+            const distDirs = [
+              'packages/cli/dist',
+              'packages/a2a-server/dist',
+              'packages/core/dist',
+              'bundle'
+            ];
+            
+            distDirs.forEach(dir => {
+              const indexFile = path.join(dir, 'index.js');
+              const indexMjsFile = path.join(dir, 'index.mjs');
+              
+              [indexFile, indexMjsFile].forEach(file => {
+                if (fs.existsSync(file)) {
+                  try {
+                    let content = fs.readFileSync(file, 'utf8');
+                    const before = content.length;
+                    
+                    // Replace all occurrences of @google/gemini-cli with @srdcloud/gemini-cli
+                    content = content.replace(/@google\/gemini-cli/g, '@srdcloud/gemini-cli');
+                    
+                    if (content.length !== before) {
+                      fs.writeFileSync(file, content, 'utf8');
+                      console.log('Updated: ' + file);
+                    }
+                  } catch (e) {
+                    console.warn('Could not process ' + file + ': ' + e.message);
+                  }
+                }
+              });
+              
+              // Also check for .mjs files in bundle
+              if (dir === 'bundle') {
+                const bundleFile = path.join(dir, 'gemini.js');
+                if (fs.existsSync(bundleFile)) {
+                  try {
+                    let content = fs.readFileSync(bundleFile, 'utf8');
+                    const before = content.length;
+                    content = content.replace(/@google\/gemini-cli/g, '@srdcloud/gemini-cli');
+                    if (content.length !== before) {
+                      fs.writeFileSync(bundleFile, content, 'utf8');
+                      console.log('Updated: ' + bundleFile);
+                    }
+                  } catch (e) {
+                    console.warn('Could not process ' + bundleFile + ': ' + e.message);
+                  }
+                }
+              }
+            });
+            
+            console.log('✓ Import rewriting completed');
+          "
+
       - name: Prepare packages for publishing
         run: npm run prepare:package
 
