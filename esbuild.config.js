@@ -86,18 +86,6 @@ const cliConfig = {
   plugins: createWasmPlugins(),
   alias: {
     'is-in-ci': path.resolve(__dirname, 'packages/cli/src/patches/is-in-ci.ts'),
-    '@google/gemini-cli-core': path.resolve(
-      __dirname,
-      'packages/core/dist/index.js',
-    ),
-    '@google/gemini-cli-a2a-server': path.resolve(
-      __dirname,
-      'packages/a2a-server/dist/index.js',
-    ),
-    '@google/gemini-cli-test-utils': path.resolve(
-      __dirname,
-      'packages/test-utils/dist/index.js',
-    ),
   },
   metafile: true,
 };

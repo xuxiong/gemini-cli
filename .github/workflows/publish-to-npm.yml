@@ -128,6 +128,11 @@ jobs:
             fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
           "
 
+      - name: Update source code imports to use @srdcloud scope
+        run: |
+          find packages -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" | xargs sed -i "s|from '@google/gemini-cli|from '@srdcloud/gemini-cli|g"
+          find packages -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" | xargs sed -i "s|import '@google/gemini-cli|import '@srdcloud/gemini-cli|g"
+
       - name: Build bundle
         run: npm run bundle
 
