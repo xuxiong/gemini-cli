@@ -18,7 +18,7 @@ import { ConfigContext } from '../ui/contexts/ConfigContext.js';
 import { calculateMainAreaWidth } from '../ui/utils/ui-sizing.js';
 import { VimModeProvider } from '../ui/contexts/VimModeContext.js';
 
-import { type Config } from '@google/gemini-cli-core';
+import { type Config } from '@srdcloud/gemini-cli-core';
 
 // Wrapper around ink-testing-library's render that ensures act() is called
 export const render = (

@@ -25,15 +25,15 @@ import {
   SlashCommandStatus,
   ToolConfirmationOutcome,
   makeFakeConfig,
-} from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
 
 const { logSlashCommand } = vi.hoisted(() => ({
   logSlashCommand: vi.fn(),
 }));
 
-vi.mock('@google/gemini-cli-core', async (importOriginal) => {
+vi.mock('@srdcloud/gemini-cli-core', async (importOriginal) => {
   const original =
-    await importOriginal<typeof import('@google/gemini-cli-core')>();
+    await importOriginal<typeof import('@srdcloud/gemini-cli-core')>();
 
   return {
     ...original,

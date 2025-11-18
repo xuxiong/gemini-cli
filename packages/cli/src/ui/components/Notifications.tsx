@@ -11,7 +11,7 @@ import { theme } from '../semantic-colors.js';
 import { StreamingState } from '../types.js';
 import { UpdateNotification } from './UpdateNotification.js';
 
-import { GEMINI_DIR } from '@google/gemini-cli-core';
+import { GEMINI_DIR } from '@srdcloud/gemini-cli-core';
 import { homedir } from 'node:os';
 import path from 'node:path';
 

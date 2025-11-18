@@ -55,7 +55,7 @@ function createWasmPlugins() {
     name: 'remap-google-to-srdcloud',
     setup(build) {
       if (process.env.NPM_PUBLISH_MODE === 'true') {
-        // Remap @google/gemini-cli-* to @srdcloud/gemini-cli-* for both internal deps and external imports
+        // Remap @srdcloud/gemini-cli-* to @srdcloud/gemini-cli-* for both internal deps and external imports
         build.onResolve({ filter: /^@google\/gemini-cli/ }, (args) => {
           const remapped = args.path.replace('@google/', '@srdcloud/');
           console.log(`[remap] ${args.path} -> ${remapped}`);

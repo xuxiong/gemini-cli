@@ -15,13 +15,13 @@ import {
   getErrorMessage,
   SimpleExtensionLoader,
   type FileDiscoveryService,
-} from '@google/gemini-cli-core';
-import type { LoadServerHierarchicalMemoryResponse } from '@google/gemini-cli-core/index.js';
+} from '@srdcloud/gemini-cli-core';
+import type { LoadServerHierarchicalMemoryResponse } from '@srdcloud/gemini-cli-core/index.js';
 import { loadHierarchicalGeminiMemory } from '../../config/config.js';
 
-vi.mock('@google/gemini-cli-core', async (importOriginal) => {
+vi.mock('@srdcloud/gemini-cli-core', async (importOriginal) => {
   const original =
-    await importOriginal<typeof import('@google/gemini-cli-core')>();
+    await importOriginal<typeof import('@srdcloud/gemini-cli-core')>();
   return {
     ...original,
     getErrorMessage: vi.fn((error: unknown) => {

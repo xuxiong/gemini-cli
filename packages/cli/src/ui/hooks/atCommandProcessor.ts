@@ -7,13 +7,13 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import type { PartListUnion, PartUnion } from '@google/genai';
-import type { AnyToolInvocation, Config } from '@google/gemini-cli-core';
+import type { AnyToolInvocation, Config } from '@srdcloud/gemini-cli-core';
 import {
   debugLogger,
   getErrorMessage,
   isNodeError,
   unescapePath,
-} from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
 import type { HistoryItem, IndividualToolCallDisplay } from '../types.js';
 import { ToolCallStatus } from '../types.js';
 import type { UseHistoryManagerReturn } from './useHistoryManager.js';

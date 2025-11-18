@@ -7,7 +7,7 @@
 import { vi, describe, it, expect, beforeEach, type Mock } from 'vitest';
 import { listMcpServers } from './list.js';
 import { loadSettings } from '../../config/settings.js';
-import { createTransport, debugLogger } from '@google/gemini-cli-core';
+import { createTransport, debugLogger } from '@srdcloud/gemini-cli-core';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { ExtensionStorage } from '../../config/extensions/storage.js';
 import { ExtensionManager } from '../../config/extension-manager.js';
@@ -21,7 +21,7 @@ vi.mock('../../config/extensions/storage.js', () => ({
   },
 }));
 vi.mock('../../config/extension-manager.js');
-vi.mock('@google/gemini-cli-core', () => ({
+vi.mock('@srdcloud/gemini-cli-core', () => ({
   createTransport: vi.fn(),
   MCPServerStatus: {
     CONNECTED: 'CONNECTED',

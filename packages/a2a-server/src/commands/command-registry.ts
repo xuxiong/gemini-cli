@@ -5,7 +5,7 @@
  */
 
 import { ListExtensionsCommand } from './list-extensions.js';
-import type { Config } from '@google/gemini-cli-core';
+import type { Config } from '@srdcloud/gemini-cli-core';
 
 export interface Command {
   readonly names: string[];

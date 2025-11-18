@@ -25,7 +25,7 @@ import {
   makeFakeConfig,
   type GoogleApiError,
   RetryableQuotaError,
-} from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
 import { useQuotaAndFallback } from './useQuotaAndFallback.js';
 import type { UseHistoryManagerReturn } from './useHistoryManager.js';
 import { AuthState, MessageType } from '../types.js';

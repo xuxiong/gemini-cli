@@ -14,7 +14,7 @@ import {
   MessageBusType,
   type UpdatePolicy,
   Storage,
-} from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
 import { type Settings, getSystemSettingsPath } from './settings.js';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

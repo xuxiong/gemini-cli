@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { ApprovalMode, PolicyDecision } from '@google/gemini-cli-core';
+import { ApprovalMode, PolicyDecision } from '@srdcloud/gemini-cli-core';
 import type { Dirent } from 'node:fs';
 import nodePath from 'node:path';
 

@@ -6,12 +6,12 @@
 
 import { describe, it, expect, vi } from 'vitest';
 import { ListExtensionsCommand } from './list-extensions.js';
-import type { Config } from '@google/gemini-cli-core';
+import type { Config } from '@srdcloud/gemini-cli-core';
 
 const mockListExtensions = vi.hoisted(() => vi.fn());
-vi.mock('@google/gemini-cli-core', async (importOriginal) => {
+vi.mock('@srdcloud/gemini-cli-core', async (importOriginal) => {
   const original =
-    await importOriginal<typeof import('@google/gemini-cli-core')>();
+    await importOriginal<typeof import('@srdcloud/gemini-cli-core')>();
 
   return {
     ...original,

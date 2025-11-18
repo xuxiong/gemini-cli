@@ -9,7 +9,7 @@ import * as path from 'node:path';
 import { homedir } from 'node:os';
 import * as dotenv from 'dotenv';
 
-import type { TelemetryTarget } from '@google/gemini-cli-core';
+import type { TelemetryTarget } from '@srdcloud/gemini-cli-core';
 import {
   AuthType,
   Config,
@@ -23,7 +23,7 @@ import {
   type GeminiCLIExtension,
   type ExtensionLoader,
   debugLogger,
-} from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
 
 import { logger } from '../utils/logger.js';
 import type { Settings } from './settings.js';

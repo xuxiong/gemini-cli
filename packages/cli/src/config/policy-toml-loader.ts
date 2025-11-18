@@ -8,7 +8,7 @@ import {
   type PolicyRule,
   PolicyDecision,
   type ApprovalMode,
-} from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import toml from '@iarna/toml';

@@ -39,7 +39,7 @@ import {
   type MCPServerConfig,
   type ExtensionInstallMetadata,
   type GeminiCLIExtension,
-} from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
 import { maybeRequestConsentOrFail } from './extensions/consent.js';
 import { resolveEnvVarsInObject } from '../utils/envVarResolver.js';
 import { ExtensionStorage } from './extensions/storage.js';
@@ -57,7 +57,7 @@ import {
 import type {
   ExtensionEvents,
   ExtensionLoader,
-} from '@google/gemini-cli-core/src/utils/extensionLoader.js';
+} from '@srdcloud/gemini-cli-core/src/utils/extensionLoader.js';
 import { EventEmitter } from 'node:events';
 
 interface ExtensionManagerParams {

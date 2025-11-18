@@ -16,7 +16,7 @@ import type {
   MCPServerConfig,
   OutputFormat,
   GeminiCLIExtension,
-} from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
 import { extensionsCommand } from '../commands/extensions.js';
 import {
   Config,
@@ -38,7 +38,7 @@ import {
   getPty,
   EDIT_TOOL_NAME,
   debugLogger,
-} from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
 import type { Settings } from './settings.js';
 
 import { getCliVersion } from '../utils/version.js';
@@ -49,7 +49,7 @@ import { appEvents } from '../utils/events.js';
 import { isWorkspaceTrusted } from './trustedFolders.js';
 import { createPolicyEngineConfig } from './policy.js';
 import { ExtensionManager } from './extension-manager.js';
-import type { ExtensionLoader } from '@google/gemini-cli-core/src/utils/extensionLoader.js';
+import type { ExtensionLoader } from '@srdcloud/gemini-cli-core/src/utils/extensionLoader.js';
 import { requestConsentNonInteractive } from './extensions/consent.js';
 import { promptForSetting } from './extensions/extensionSettings.js';
 

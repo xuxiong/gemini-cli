@@ -37,7 +37,7 @@ import {
   type SettingsValue,
   TOGGLE_TYPES,
 } from '../../config/settingsSchema.js';
-import { debugLogger } from '@google/gemini-cli-core';
+import { debugLogger } from '@srdcloud/gemini-cli-core';
 
 interface SettingsDialogProps {
   settings: LoadedSettings;

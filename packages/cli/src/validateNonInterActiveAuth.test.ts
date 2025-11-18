@@ -19,8 +19,8 @@ import {
   AuthType,
   OutputFormat,
   makeFakeConfig,
-} from '@google/gemini-cli-core';
-import type { Config } from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
+import type { Config } from '@srdcloud/gemini-cli-core';
 import * as auth from './config/auth.js';
 import { type LoadedSettings } from './config/settings.js';
 

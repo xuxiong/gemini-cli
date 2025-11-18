@@ -14,7 +14,7 @@ import {
   coreEvents,
   GEMINI_DIR,
   type GeminiCLIExtension,
-} from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
 
 vi.mock('os', async (importOriginal) => {
   const mockedOs = await importOriginal<typeof os>();

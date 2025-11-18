@@ -13,12 +13,12 @@ import { fileURLToPath } from 'node:url';
 import { quote, parse } from 'shell-quote';
 import { USER_SETTINGS_DIR } from '../config/settings.js';
 import { promisify } from 'node:util';
-import type { Config, SandboxConfig } from '@google/gemini-cli-core';
+import type { Config, SandboxConfig } from '@srdcloud/gemini-cli-core';
 import {
   debugLogger,
   FatalSandboxError,
   GEMINI_DIR,
-} from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
 import { ConsolePatcher } from '../ui/utils/ConsolePatcher.js';
 import { randomBytes } from 'node:crypto';
 

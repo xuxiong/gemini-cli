@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { getErrorMessage } from '@google/gemini-cli-core';
+import { getErrorMessage } from '@srdcloud/gemini-cli-core';
 import { MessageType } from '../types.js';
 import { loadHierarchicalGeminiMemory } from '../../config/config.js';
 import type { SlashCommand, SlashCommandActionReturn } from './types.js';

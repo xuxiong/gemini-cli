@@ -9,7 +9,7 @@ import type {
   ToolCallRequestInfo,
   CompletedToolCall,
   UserFeedbackPayload,
-} from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
 import { isSlashCommand } from './ui/utils/commandUtils.js';
 import type { LoadedSettings } from './config/settings.js';
 import {
@@ -27,7 +27,7 @@ import {
   debugLogger,
   coreEvents,
   CoreEvent,
-} from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
 
 import type { Content, Part } from '@google/genai';
 

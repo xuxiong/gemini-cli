@@ -48,7 +48,7 @@ import {
   debugLogger,
   coreEvents,
   CoreEvent,
-} from '@google/gemini-cli-core';
+} from '@srdcloud/gemini-cli-core';
 import { validateAuthMethod } from '../config/auth.js';
 import { loadHierarchicalGeminiMemory } from '../config/config.js';
 import { getPolicyErrorsForUI } from '../config/policy.js';

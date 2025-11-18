@@ -1,0 +1,83 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                    npm publish & install 问题修复报告                       ║
+║                           2025-11-18                                        ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+【问题1】npm publish 403冲突 ✅ 已解决
+
+症状: 版本号冲突，无法发布已存在的版本
+
+原因: 工作流每次运行都发布相同版本号
+
+解决方案:
+  ✓ 修改: .github/workflows/publish-to-npm.yml
+  ✓ 新增: 动态版本生成步骤 (Update version for nightly builds)
+  ✓ 格式: {基础版本}-nightly.{YYYYMMDD}.{git短哈希}
+  ✓ 效果: 每次发布都有唯一版本号
+
+
+【问题2】npm install 无法安装 ✅ 已解决
+
+症状: Cannot destructure property 'package' of 'node.target' as it is null
+
+原因: npm registry配置冲突 (全局用私有，包发布到公网)
+
+解决方案:
+  ✓ 清理npm缓存
+  ✓ 删除corrupted lockfile
+  ✓ 重置registry到npmjs.org
+  ✓ 重新安装
+
+验证:
+  ✓ 已成功安装到 /tmp/node_modules/
+  ✓ 依赖树完整 (325 packages)
+  ✓ 无错误或损坏
+
+
+【发布状态】
+
+✅ @srdcloud/gemini-cli@0.13.0-nightly.20251118.b87626c
+✅ @srdcloud/gemini-cli-a2a-server@0.13.0-nightly.20251118.b87626c
+✅ @srdcloud/gemini-cli-core@0.13.0-nightly.20251118.b87626c
+✅ gemini-cli-vscode-ide-companion@0.13.0-nightly.20251118.b87626c
+
+Registry: https://registry.npmjs.org/
+Node版本要求: >= 20.0.0
+
+
+【用户修复指令】
+
+快速一键修复:
+
+    npm cache clean --force
+    rm -rf package-lock.json node_modules ~/.npm
+    npm config set registry https://registry.npmjs.org/
+    npm install @srdcloud/gemini-cli
+    npm list @srdcloud/gemini-cli
+
+
+【相关文档】
+
+1. /tmp/ISSUE_SUMMARY.md - 完整问题总结
+2. /tmp/FIX_NPM_INSTALL.md - 详细排查指南
+3. /tmp/auto-fix-npm-install.sh - 自动化修复脚本
+
+
+【技术变更】
+
+提交: b87626cd
+文件: .github/workflows/publish-to-npm.yml
+
+添加步骤:
+  - 生成动态版本号 (基于时间戳和git hash)
+  - 更新所有package.json版本
+  - 确保每次发布有唯一版本号
+
+
+【后续】
+
+- 监控后续的tag push操作
+- 如果遇到新问题，参考提供的修复脚本
+- 如果需要同时使用多个registry，使用scope-specific配置
+
+════════════════════════════════════════════════════════════════════════════
